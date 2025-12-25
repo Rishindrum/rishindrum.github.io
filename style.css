@@ -39,10 +39,10 @@ ul {
     padding: 0 20px;
 }
 
-/* Navbar */
+/* Navbar - Dark Theme with Shadow */
 .navbar {
-    background: var(--white);
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    background: #141a21; /* Very dark blue-gray to match theme */
+    box-shadow: 0 4px 20px rgba(0,0,0,0.5); /* Strong shadow below navbar */
     position: sticky;
     top: 0;
     z-index: 1000;
@@ -58,7 +58,11 @@ ul {
 .logo {
     font-size: 1.5rem;
     font-weight: 700;
-    color: var(--primary);
+    color: #d6701b;
+    
+    /* Animation Trigger */
+    opacity: 50;
+    animation: fadeInLogo 1.5s ease-in forwards;
 }
 
 .nav-links {
@@ -68,6 +72,7 @@ ul {
 
 .nav-links a {
     font-weight: 500;
+    color: #e0e0e0; /* Light gray text for dark bg */
     transition: color 0.3s;
 }
 
@@ -80,16 +85,24 @@ ul {
     color: var(--white) !important;
     padding: 0.5rem 1rem;
     border-radius: 5px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.3); /* Shadow for nav button */
 }
 
 .btn-nav:hover {
     background: #a34a00;
 }
 
-/* Hero Section */
+/* Hero Section - Full Screen & Dark Gradient */
+/* Hero Section - Full Screen, Dark, Animated */
 .hero {
-    padding: 100px 0;
-    background: linear-gradient(to right, #fff, #fefefe);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    background: linear-gradient(135deg, #1f2833, #333f48); 
+    color: var(--white);
+    position: relative;
+    padding: 0;
+    overflow: hidden; /* Prevents scrollbars during animation */
 }
 
 .hero-content {
@@ -97,67 +110,159 @@ ul {
     align-items: center;
     justify-content: space-between;
     gap: 50px;
+    width: 100%;
 }
 
+/* TYPING ANIMATION FOR NAME */
 .hero-text h1 {
-    font-size: 3rem;
+    font-size: 3.5rem;
     margin-bottom: 10px;
-    color: var(--dark);
+    color: var(--white);
+    
+    /* Typewriter Logic */
+    display: inline-block;
+    overflow: hidden; /* Hides text until typed */
+    white-space: nowrap; /* Keeps text on one line */
+    border-right: 4px solid var(--primary); /* The blinking cursor */
+    width: 0; /* Start hidden */
+    animation: 
+        typing 2.5s steps(30, end) forwards,
+        blink .75s step-end infinite;
 }
 
-.hero-text h2 {
+/* FADE-IN ELEMENTS (Subtitle, Text, Buttons) */
+/* Initially hidden (opacity 0) so they can fade in */
+.hero-text h2,
+.hero-text p,
+.hero-btns,
+.social-links {
+    opacity: 0; 
+    animation: fadeInUp 0.8s ease-out forwards;
+}
+
+/* Staggered Delays - Start AFTER typing finishes (2.5s) */
+.hero-text h2 { 
     font-size: 1.5rem;
     color: var(--primary);
     margin-bottom: 20px;
     font-weight: 500;
+    animation-delay: 0.6s; 
 }
 
 .hero-text p {
-    font-size: 1.1rem;
-    color: var(--text-light);
+    font-size: 1.15rem;
+    color: #e0e0e0;
     margin-bottom: 30px;
     max-width: 500px;
+    animation-delay: 0.8s;
 }
 
 .hero-btns {
     margin-bottom: 30px;
+    animation-delay: 1.0s;
 }
 
+.social-links {
+    animation-delay: 1.2s;
+}
+
+/* BUTTONS WITH SHADOWS */
 .btn {
     display: inline-block;
-    padding: 10px 25px;
+    padding: 12px 30px;
     border-radius: 5px;
     margin-right: 10px;
     font-weight: 600;
+    transition: transform 0.2s ease;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3); /* Added Shadow */
+}
+
+.btn:hover {
+    transform: translateY(-3px);
 }
 
 .btn-primary {
     background: var(--primary);
     color: var(--white);
+    border: 2px solid var(--primary);
+}
+
+.btn-primary:hover {
+    background: #a34a00;
+    border-color: #a34a00;
 }
 
 .btn-outline {
-    border: 2px solid var(--primary);
-    color: var(--primary);
+    border: 2px solid var(--white);
+    color: var(--white);
+}
+
+.btn-outline:hover {
+    background: var(--white);
+    color: var(--dark);
 }
 
 .social-links a {
-    font-size: 1.5rem;
+    font-size: 1.6rem;
     margin-right: 20px;
-    color: var(--dark);
-    transition: color 0.3s;
+    color: #e0e0e0;
+    transition: color 0.3s, transform 0.2s;
 }
 
 .social-links a:hover {
     color: var(--primary);
+    transform: translateY(-3px);
+}
+ 
+/* HERO IMAGE - LARGE SHADOW & FADE IN */
+.hero-img {
+    opacity: 0;
+    animation: fadeInUp 1s ease-out forwards;
+    animation-delay: 0.8s; /* Fades in with text */
 }
 
 .hero-img img {
-    width: 300px;
-    height: 300px;
+    width: 320px;
+    height: 320px;
     border-radius: 50%;
     object-fit: cover;
     border: 5px solid var(--primary);
+    
+    /* Larger Shadow requested */
+    box-shadow: 0 20px 50px rgba(0,0,0,0.7); 
+}
+
+/* Mobile Responsive Fixes */
+@media (max-width: 768px) {
+    .hero {
+        min-height: auto;
+        padding: 100px 0 50px 0;
+    }
+    
+    .hero-content {
+        flex-direction: column-reverse;
+        text-align: center;
+    }
+    
+    /* Disable typing effect on mobile to prevent layout breaking */
+    .hero-text h1 {
+        white-space: normal;
+        border: none;
+        width: auto;
+        font-size: 2.5rem;
+        animation: fadeInUp 0.8s ease-out forwards; /* Just fade in */
+    }
+
+    /* Reset delays for mobile since typing is removed */
+    .hero-text h2, .hero-text p, .hero-btns, .social-links, .hero-img {
+        animation-delay: 0.2s;
+    }
+    
+    .hero-img img {
+        width: 250px;
+        height: 250px;
+        margin-bottom: 30px;
+    }
 }
 
 /* Sections Global */
@@ -215,29 +320,152 @@ ul {
 
 
 /* About & Education */
-.about-content {
-    text-align: center;
-    max-width: 800px;
-    margin: 0 auto 40px;
+/* ABOUT SECTION - LEFT ALIGNED (No Image) */
+
+/* 1. Left Aligned Title */
+.section-title-left {
+    font-size: 2.2rem;
+    margin-bottom: 25px;
+    color: var(--dark);
+    text-align: left; /* Align text to left */
+    position: relative;
+    display: block;
 }
 
-.education-card {
-    background: var(--white);
-    padding: 30px;
-    border-radius: 8px;
-    box-shadow: 0 3px 10px rgba(0,0,0,0.05);
-    border-left: 5px solid var(--primary);
+/* 2. Orange Underline (Aligned Left) */
+.section-title-left::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 3px;
+    background: var(--primary);
+    margin-top: 8px;
+    margin-left: 0; /* Ensures it starts at the far left */
 }
 
-.edu-details h4 {
-    font-size: 1.2rem;
-    margin-bottom: 5px;
+/* 3. Text Container */
+.about-content-left {
+    text-align: left;
+    max-width: 900px; /* Keeps lines from getting uncomfortably long */
+    margin-bottom: 40px;
 }
 
-.coursework {
-    margin-top: 10px;
-    font-size: 0.95rem;
+.about-content-left p {
+    margin-bottom: 20px;
+    font-size: 1.05rem;
     color: var(--text-light);
+    line-height: 1.8;
+}
+
+/* EDUCATION CARD - SPLIT LAYOUT */
+
+/* 1. Flex Wrapper for Image + Text */
+.edu-flex-wrapper {
+    display: flex;
+    gap: 30px;
+    align-items: flex-start; /* Aligns image with top of text */
+    margin-top: 20px;
+}
+
+/* 2. Education Image Specifics */
+.edu-img {
+    width: 180px;      /* Fixed width for the logo/photo */
+    height: 180px;     /* Square aspect ratio looks professional for logos */
+    flex-shrink: 0;    /* Prevents squishing */
+    border-radius: 8px;
+    
+    /* Inherits grayscale behavior from global .card-image-wrapper */
+}
+
+/* FORCE IMAGE COLOR ON CARD HOVER */
+.education-card-link:hover .card-image-wrapper img {
+    filter: grayscale(0%) opacity(1);
+    transform: scale(1.05); /* Optional: slight zoom for effect */
+}
+
+/* 3. Header Styling with Small Orange Line */
+.edu-header {
+    font-size: 1.4rem;
+    color: var(--dark);
+    margin-bottom: 10px;
+    display: inline-block;
+    position: relative;
+}
+
+/* The Line Itself */
+.edu-header::after {
+    content: '';
+    display: block;
+    width: 40px;       /* Shorter width */
+    height: 3px;
+    background: var(--primary);
+    margin-top: 5px;
+    border-radius: 2px;
+}
+
+/* MOBILE RESPONSIVE: Stack them on phones */
+@media (max-width: 768px) {
+    .edu-flex-wrapper {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .edu-img {
+        width: 150px;
+        height: 150px;
+        margin-bottom: 15px;
+    }
+    
+    /* Center the orange line on mobile */
+    .edu-header::after {
+        margin: 5px auto 0;
+    }
+}
+
+/* EDUCATION CARD STYLING */
+.education-card {
+    /* Default: Soft Platinum */
+    background: #f7f9fc; 
+    
+    /* Increased Padding for "better all around" spacing */
+    padding: 45px;       
+    
+    border-radius: 8px;
+    margin-top: 80px; 
+    
+    /* Shadow & Borders */
+    box-shadow: 0 15px 35px rgba(0,0,0,0.1); 
+    border-left: 5px solid var(--primary);
+    border: 1px solid #e1e4e8; 
+    
+    width: 100%;
+    
+    /* Smoothly transition the background color, shadow, and lift */
+    transition: all 0.4s ease;
+}
+
+/* EDUCATION CLICKABLE LINK WRAPPER */
+.education-card-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    width: 100%;
+}
+
+/* HOVER EFFECT */
+.education-card-link:hover .education-card {
+    /* Lift Up */
+    transform: translateY(-7px);
+    
+    /* Stronger Shadow */
+    box-shadow: 0 25px 50px rgba(0,0,0,0.15);
+    
+    /* Color Change: Transitions to a subtle warm/orange tint */
+    background: #fff8f2; 
+    
+    /* Optional: Change border color to show interaction */
+    border-color: var(--primary);
 }
 
 /* Experience Timeline */
@@ -252,11 +480,29 @@ ul {
 }
 
 .timeline-date {
-    width: 150px;
+    width: 110px;       /* Fixed width */
+    min-width: 110px;
+    flex-shrink: 0;
+    
+    /* FLEXBOX MAGIC FOR STACKING */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centers text horizontally */
+    justify-content: flex-start;
+    
     font-weight: 600;
     color: var(--text-light);
-    flex-shrink: 0;
-    padding-top: 10px;
+    font-size: 0.85rem;
+    line-height: 1.5;   /* Breathing room between lines */
+    padding-top: 5px;   /* Slight push down to align with image top */
+    text-align: center;
+}
+
+/* Optional: Make the dash slightly lighter or styled */
+.timeline-date span.dash {
+    color: var(--primary); /* Makes the dash orange (optional) */
+    font-weight: bold;
+    margin: 2px 0;         /* Space around the dash */
 }
 
 .timeline-content {
@@ -461,4 +707,45 @@ footer .copyright {
 .fade-in-section.is-visible {
     opacity: 1;
     transform: none;
+}
+
+/* KEYFRAME ANIMATIONS */
+
+/* Typing Effect */
+@keyframes typing {
+    from { width: 0 }
+    to { width: 100% }
+}
+
+/* Blinking Cursor */
+@keyframes blink {
+    50% { border-color: transparent }
+}
+
+/* Fade In & Move Up */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+/* Logo Slide Down Effect */
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+/* Subtle Fade In Animation */
+@keyframes fadeInLogo {
+    from { opacity: 0; }
+    to { opacity: 1; }
 }
