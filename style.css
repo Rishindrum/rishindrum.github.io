@@ -500,9 +500,13 @@ ul {
 
 /* Optional: Make the dash slightly lighter or styled */
 .timeline-date span.dash {
-    color: var(--primary); /* Makes the dash orange (optional) */
+    color: var(--primary);
+    
     font-weight: bold;
-    margin: 2px 0;         /* Space around the dash */
+    
+    display: block;
+    transform: scaleX(2.5); 
+    margin: 2px 0;
 }
 
 .timeline-content {
