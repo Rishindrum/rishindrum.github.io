@@ -578,9 +578,12 @@ ul {
 
 .project-links {
     margin-top: auto; /* Pushes link to bottom */
+    display: flex;
+    align-items: center;
     font-size: 0.9rem;
     font-weight: 600;
     padding-top: 15px;
+    gap: 15px;
 }
 
 /* Leadership */
