@@ -645,7 +645,7 @@ ul {
 .tech-stack {
     font-size: 0.85rem;
     font-weight: 600;
-    color: var(--primary);
+    color: var(--text);
     margin-bottom: 16px;
     text-transform: uppercase;
     letter-spacing: 0.5px;
